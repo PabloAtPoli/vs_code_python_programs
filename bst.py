@@ -29,6 +29,21 @@ def inorder(root):
 		print(root.key, end=" ") 
 		inorder(root.right) 
 
+def postorder(root):
+	if root is not None:
+		postorder(root.left)
+		postorder(root.right)
+		print(root.key,end=" ")
+		
+def preorder(root):
+	if root is not None:
+		print(root.key,end=" ")
+		preorder(root.left)
+		preorder(root.right)
+
+
+
+
 # Driver Code 
 if __name__ == '__main__': 
 	""" 
@@ -44,25 +59,24 @@ if __name__ == '__main__':
 	# Inserting value 50 
 	root = insert(root, 50) 
 
-	# Inserting value 30 
 	insert(root, 30) 
-
-	# Inserting value 20 
 	insert(root, 20) 
-
-	# Inserting value 40 
 	insert(root, 40) 
-
-	# Inserting value 70 
 	insert(root, 70) 
-
-	# Inserting value 60 
 	insert(root, 60) 
-
-	# Inserting value 80 
 	insert(root, 80) 
 
 	# Print the BST 
+	print("Inorder Traversal:", end=" ")
 	inorder(root) 
+	print()
+
+	print("Preorder Traversal:", end=" ")
+	preorder(root) 
+	print()
+
+	print("Postorder Traversal:", end=" ")
+	postorder(root) 
+	print()
 	
 #This code is contributed by japmeet01
