@@ -24,9 +24,21 @@ def insert(node, key):
     # Return the node pointer
     return node
 
+
+# Utility function to search a key in a BST
+def search(root, key):
+    # Base Cases: root is null or key is present at root
+    if root is None or root.key == key:
+        return root
+
+    # Key is greater than root's key
+    if root.key < key:
+        return search(root.right, key)
+
+    # Key is smaller than root's key
+    return search(root.left, key)
+
 # Function to do inorder traversal of BST
-
-
 def inorder(root):
     if root is not None:
         inorder(root.left)
@@ -144,24 +156,20 @@ def delete_node(root, key):
     if root is None:
         return root
  
-    # If the key to be deleted is
-    # smaller than the root's key,
+    # If the key to be deleted is smaller than the root's key,
     # then it lies in left subtree
     if key < root.key:
         root.left = delete_node(root.left, key)
  
-    # If the key to be deleted is
-    # greater than the root's key,
+    # If the key to be deleted is greater than the root's key,
     # then it lies in right subtree
     elif key > root.key:
         root.right = delete_node(root.right, key)
  
-    # If key is same as root's key,
-    # then this is the node
+    # If key is same as root's key, then this is the node
     # to be deleted
     else:
-        # Node with only one child
-        # or no child
+        # Node with only one child or no child
         if root.left is None:
             temp = root.right
             root = None
@@ -171,8 +179,7 @@ def delete_node(root, key):
             root = None
             return temp
  
-        # Node with two children:
-        # Get the inorder successor(smallest
+        # Node with two children: Get the inorder successor(smallest
         # in the right subtree)
         temp = min_value_node(root.right)
  
@@ -186,73 +193,115 @@ def delete_node(root, key):
     return root
 
 # Driver Code
+def insert(root, key):
+    if root is None:
+        return Node(key)
+    if key < root.key:
+        root.left = insert(root.left, key)
+    else:
+        root.right = insert(root.right, key)
+    return root
+
+def search(root, key):
+    if root is None or root.key == key:
+        return root
+    if root.key < key:
+        return search(root.right, key)
+    return search(root.left, key)
+
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.key, end=" ")
+        inorder(root.right)
+
+def preorder(root):
+    if root:
+        print(root.key, end=" ")
+        preorder(root.left)
+        preorder(root.right)
+
+def postorder(root):
+    if root:
+        postorder(root.left)
+        postorder(root.right)
+        print(root.key, end=" ")
+
 if __name__ == '__main__':
     """ 
     Let us create following BST 
-       50 
-      /	 \ 
+         50 
+        /	 \ 
     30	 70 
     / \ / \  
-  20 40 60 80 
- /
+20 40 60 80 
+/
 10   
     """
     root = None
 
     # Inserting value 50
-    root = insert(root, 50)
+root = insert(root, 50)
 
-    insert(root, 30)
-    insert(root, 20)
-    insert(root, 40)
-    insert(root, 70)
-    insert(root, 60)
-    insert(root, 80)
-    insert(root, 10)
+insert(root, 30)
+insert(root, 20)
+insert(root, 40)
+insert(root, 70)
+insert(root, 60)
+insert(root, 80)
+insert(root, 10)
+
+print("Search of 70 in tree:",search(root, 70).key)
+    
+result = search(root, 100)
+if result is not None:
+     print("Search of 100 in tree:", result.key)
+else:
+    print("100 is not in the tree")
 
     # Print the BST
-    print("Inorder Traversal:", end=" ")
-    inorder(root)
-    print()
+print("Inorder Traversal:", end=" ")
+inorder(root)
+print()
 
-    print("Preorder Traversal:", end=" ")
-    preorder(root)
-    print()
+print("Preorder Traversal:", end=" ")
+preorder(root)
+print()
 
-    print("Postorder Traversal:", end=" ")
-    postorder(root)
-    print()
+print("Postorder Traversal:", end=" ")
+postorder(root)
+print()
 
-    print(f"The height of the binary tree is {height(root)}")
+print(f"The height of the binary tree is {height(root)}")
 
-    print("The nodes of level 3 are the following:")
-    print_given_level(root, 3)
-    print()
+# print("The nodes of level 3 are the following:")
+# print_given_level(root, 3)
+# print()
 
-    print("The nodes of level 2 are the following:")
-    print_given_level(root, 2)
-    print()
+# print("The nodes of level 2 are the following:")
+# print_given_level(root, 2)
+# print()
 
-    print("The binary tree by levels is the following:")
-    print_level_order(root)
-    print()
+# print("The binary tree by levels is the following:")
+# print_level_order(root)
+# print()
 
-    print("The leaf nodes are the following:")
-    print_leaf_nodes(root)
-    print()
+# print("The leaf nodes are the following:")
+# print_leaf_nodes(root)
+# print()
 
-    print("The nodes that are not leaft are the following:")
-    print_non_leaf_node(root)
+# print("The nodes that are not leaft are the following:")
+# print_non_leaf_node(root)
 
-    print("\nDelete 50")
-    root = delete_node(root, 50)
-    print("Inorder Traversal after deletion of 50:", end=" ")
-    inorder(root)
+print("\nDelete 50")
+root = delete_node(root, 50)
+print("Inorder Traversal after deletion of 50:", end=" ")
+inorder(root)
 
-    print("\nDelete 10")
-    root = delete_node(root, 10)
-    print("Inorder Traversal after deletion of 10:", end=" ")
-    inorder(root)
+print("\nDelete 10")
+root = delete_node(root, 10)
+print("Inorder Traversal after deletion of 10:", end=" ")
+inorder(root)
 
 
 
