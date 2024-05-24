@@ -1,3 +1,4 @@
+from collections import deque
 # Python program to insert a node
 # in a BST
 
@@ -79,6 +80,21 @@ def height(node):
 # Print nodes at a given level
 
 
+def height_with_queue(root):
+    if root is None:
+        return 0
+
+    queue = deque([(root, 1)])
+    while queue:
+        node, depth = queue.popleft()
+        if node.left is not None:
+            queue.append((node.left, depth + 1))
+        if node.right is not None:
+            queue.append((node.right, depth + 1))
+
+    return depth
+
+
 def print_given_level(root, level):
     if root is None:
         return
@@ -89,15 +105,49 @@ def print_given_level(root, level):
         print_given_level(root.left, level - 1)
         print_given_level(root.right, level - 1)
 
-# Function to line by line print
-# level order traversal of a tree
-
 
 def print_level_order(root):
+    """
+    Function to print line by line the levels of a tree
+    """
     h = height(root)
     for i in range(1, h+1):
         print_given_level(root, i)
         print()
+
+def print_level_order_with_queue(root):
+    if root is None:
+        return 0
+
+    queue = deque([(root, 1)])
+    while queue:
+        node, depth = queue.popleft()
+        print(node.key, end=" ")
+        if node.left is not None:
+            queue.append((node.left, depth + 1))
+        if node.right is not None:
+            queue.append((node.right, depth + 1))
+
+    return depth
+
+def print_level_order_with_queue_two(root):
+    if root is None:
+        return 0
+
+    queue = deque([(root, 1)])
+    current_depth = 1
+    while queue:
+        node, depth = queue.popleft()
+        if depth != current_depth:
+            print()  # print a newline character when the depth changes
+            current_depth = depth
+        print(node.key, end=" ")
+        if node.left is not None:
+            queue.append((node.left, depth + 1))
+        if node.right is not None:
+            queue.append((node.right, depth + 1))
+
+    return depth
 
 # Function to print leaf nodes
 # from left to right
@@ -273,18 +323,28 @@ postorder(root)
 print()
 
 print(f"The height of the binary tree is {height(root)}")
+print(f"The height of the binary tree using queue is {height_with_queue(root)}")
 
-# print("The nodes of level 3 are the following:")
-# print_given_level(root, 3)
-# print()
+print("The nodes of level 3 are the following:")
+print_given_level(root, 3)
+print()
 
 # print("The nodes of level 2 are the following:")
 # print_given_level(root, 2)
 # print()
 
-# print("The binary tree by levels is the following:")
-# print_level_order(root)
-# print()
+print("The binary tree by levels is the following:")
+print_level_order(root)
+print()
+
+print("The binary tree by levels using queue is the following:")
+print_level_order_with_queue(root)
+print()
+
+print("The binary tree by levels leaving a line per level using queue is the following:")
+print_level_order_with_queue_two(root)
+print()
+
 
 # print("The leaf nodes are the following:")
 # print_leaf_nodes(root)
