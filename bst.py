@@ -2,14 +2,14 @@ from collections import deque
 # Python program to insert a node
 # in a BST
 
-# Given Node
+# specific Node
 class Node:
     def __init__(self, key):
         self.key = key
         self.left = None
         self.right = None
 # Function to insert a new node with
-# given key in BST
+# specific key in BST
 
 
 def insert(node, key):
@@ -77,7 +77,7 @@ def height(node):
         else:
             return (right_depth + 1)
 
-# Print nodes at a given level
+# Print nodes at a specific level
 
 
 def height_with_queue(root):
@@ -95,15 +95,15 @@ def height_with_queue(root):
     return depth
 
 
-def print_given_level(root, level):
+def print_specific_level(root, level):
     if root is None:
         return
     if level == 1:
         print(root.key, end=" ")
     elif level > 1:
         # Recursive call
-        print_given_level(root.left, level - 1)
-        print_given_level(root.right, level - 1)
+        print_specific_level(root.left, level - 1)
+        print_specific_level(root.right, level - 1)
 
 
 def print_level_order(root):
@@ -112,7 +112,7 @@ def print_level_order(root):
     """
     h = height(root)
     for i in range(1, h+1):
-        print_given_level(root, i)
+        print_specific_level(root, i)
         print()
 
 def print_level_order_with_queue(root):
@@ -326,11 +326,11 @@ print(f"The height of the binary tree is {height(root)}")
 print(f"The height of the binary tree using queue is {height_with_queue(root)}")
 
 print("The nodes of level 3 are the following:")
-print_given_level(root, 3)
+print_specific_level(root, 3)
 print()
 
 # print("The nodes of level 2 are the following:")
-# print_given_level(root, 2)
+# print_specific_level(root, 2)
 # print()
 
 print("The binary tree by levels is the following:")
