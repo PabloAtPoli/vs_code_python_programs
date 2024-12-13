@@ -54,4 +54,3 @@ if __name__ == "__main__":
 	# Function call
 	g.DFS(2)
 
-# This code is contributed by Neelam Yadav
